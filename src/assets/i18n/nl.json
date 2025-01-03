@@ -1,0 +1,29 @@
+{
+    "terminal": {
+        "easter-egg": {
+            "header": {
+                "window-title": "&#64;ngul4r",
+                "shortcut": "⌥⌘2"
+            },
+            "content": {
+                
+            }
+        },
+        "intro": {
+            "header": {
+                "window-title": "rik&#64;prtfl-V8MB25",
+                "shortcut": "⌥⌘1"
+            },
+            "content": {
+                "ascii1": "██████╗ ██╗██╗  ██╗",
+                "ascii2": "██╔══██╗██║██║ ██╔╝",
+                "ascii3": "██████╔╝██║█████╔╝",
+                "ascii4": "██╔══██╗██║██╔═██╗",
+                "ascii5": "██║  ██║██║██║  ██╗",
+                "ascii6": "╚═╝  ╚═╝╚═╝╚═╝  ╚═╝",
+                "welcome": "Welkom bij mijn portfolio",
+                "help": "Typ 'help' om te beginnen"
+            }
+        }
+    }
+}
