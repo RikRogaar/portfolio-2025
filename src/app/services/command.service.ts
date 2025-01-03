@@ -37,6 +37,9 @@ export class CommandService {
       contentKey: 'terminal.experience.content.message',
       titleKey: 'terminal.experience.header.window-title'
     },
+    info: {
+      text: 'INFO_TERMINAL'
+    },
     clear: {
       text: 'CLEAR_TERMINAL'
     },

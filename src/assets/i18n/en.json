@@ -41,8 +41,8 @@
                 "ascii4": "██╔══██╗██║██╔═██╗",
                 "ascii5": "██║  ██║██║██║  ██╗",
                 "ascii6": "╚═╝  ╚═╝╚═╝╚═╝  ╚═╝",
-                "welcome": "Welcome to my portfolio",
-                "help": "Type 'help' to get started"
+                "welcome": "Welcome to my portfolio!",
+                "help": " Type 'help' to get started \n Type 'info' to get a quick overview of my portfolio \n Alternatively, type 'static' to view my static portfolio"
             }
         },
         "about": {

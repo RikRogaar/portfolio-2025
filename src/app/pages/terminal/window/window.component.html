@@ -42,4 +42,10 @@
             </div>
         </div>
     </div>
+
+    @if (showInfoTerminal) {
+        <div class="grow bg-zinc-900 m-4 border-2 border-neutral-600 rounded-2xl overflow-hidden">
+            <app-info (showInfoTerminal)="onInfoTerminalChange($event)" />
+        </div>
+    }
 </main>

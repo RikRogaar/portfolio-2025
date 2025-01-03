@@ -7,6 +7,7 @@ import { CommandService, CommandOutput } from '../../../services/command.service
 import { TranslateService } from '@ngx-translate/core';
 import { EasterEggComponent } from '../../../components/terminal/easter-egg/easter-egg.component';
 import { CommonModule } from '@angular/common';
+import { InfoComponent } from '../info/info.component';
 
 interface TerminalLine {
   command?: string;
@@ -22,6 +23,7 @@ interface TerminalLine {
     NgIcon,
     TranslateModule,
     EasterEggComponent,
+    InfoComponent
   ],
   viewProviders: [
     provideIcons({
@@ -38,8 +40,10 @@ export class WindowComponent implements OnInit {
 
   public inputValue = '';
   public terminalHistory: TerminalLine[] = [];
-  public showEasterEgg = false;
   public windowTitle = this.defaultWindowTitle;
+
+  public showEasterEgg = false;
+  public showInfoTerminal = false;
 
   ngOnInit(): void {
     this.initKeyboard();
@@ -74,6 +78,11 @@ export class WindowComponent implements OnInit {
           this.showEasterEgg = true;
           this.terminalHistory.push({ command, output: { text: this.translateService.instant('terminal.easter-egg.content.message') } });
           break;
+        case 'INFO_TERMINAL':
+          this.showInfoTerminal = true;
+          this.terminalHistory.push({ command, output: { text: this.translateService.instant('terminal.info.content.message') } });
+
+          break;
         default:
           this.terminalHistory.push({ command, output });
           break;
@@ -103,7 +112,11 @@ export class WindowComponent implements OnInit {
     }];
   }
 
-  onEasterEggChange(value: boolean) {
+  public onEasterEggChange(value: boolean): void {
     this.showEasterEgg = value;
+  }
+
+  public onInfoTerminalChange(value: boolean): void {
+    this.showInfoTerminal = value;
   }
 }
