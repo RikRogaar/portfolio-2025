@@ -34,37 +34,37 @@ export class CommandService {
       text: 'CLEAR_TERMINAL'
     }));
 
-    this.commands.set('language', (args: string[]) => {
-      if (args.length === 0) {
-        return {
-          text: `Current language: ${this.translateService.currentLang}`
-        };
-      }
+    // this.commands.set('language', (args: string[]) => {
+    //   if (args.length === 0) {
+    //     return {
+    //       text: `Current language: ${this.translateService.currentLang}`
+    //     };
+    //   }
 
-      if (args[0] === 'set' && args[1]) {
-        const newLang = args[1].toLowerCase();
-        const availableLangs = ['en', 'nl'];
+    //   if (args[0] === 'set' && args[1]) {
+    //     const newLang = args[1].toLowerCase();
+    //     const availableLangs = ['en', 'nl'];
 
-        if (availableLangs.includes(newLang)) {
-          this.translateService.use(newLang);
-          return {
-            text: `Language changed to: ${newLang}`
-          };
-        } else {
-          return {
-            text: `Language '${newLang}' not supported. Available languages: ${availableLangs.join(', ')}`,
-            isError: true
-          };
-        }
-      }
+    //     if (availableLangs.includes(newLang)) {
+    //       this.translateService.use(newLang);
+    //       return {
+    //         text: `Language changed to: ${newLang}`
+    //       };
+    //     } else {
+    //       return {
+    //         text: `Language '${newLang}' not supported. Available languages: ${availableLangs.join(', ')}`,
+    //         isError: true
+    //       };
+    //     }
+    //   }
 
-      return {
-        text: 'Usage:\n' +
-              '  language - Show current language\n' +
-              '  language set <lang> - Set language (available: en, nl)',
-        isError: true
-      };
-    });
+    //   return {
+    //     text: 'Usage:\n' +
+    //           '  language - Show current language\n' +
+    //           '  language set <lang> - Set language (available: en, nl)',
+    //     isError: true
+    //   };
+    // });
 
     this.commands.set('angular', () => ({
       text: 'SHOW_EASTER_EGG'

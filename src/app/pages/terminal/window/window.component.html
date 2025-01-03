@@ -12,7 +12,7 @@
             <p class="text-sm text-neutral-400">rik&#64;prtfl-V8MB25</p>
             <p class="text-sm text-neutral-400">⌥⌘1</p>
         </header>
-        <div class="p-4 font-mono text-sm">
+        <div class="p-4 font-mono text-sm overflow-y-scroll scrollbar max-h-[calc(100vh-8rem)]">
             <div class="flex flex-col gap-2">
                 @for (line of terminalHistory; track line.command) {
                     <div class="flex flex-col">
