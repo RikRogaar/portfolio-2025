@@ -31,7 +31,7 @@
         },
         "intro": {
             "header": {
-                "window-title": "rik&#64;prtfl-V8MB25",
+                "window-title": "rik@prtfl-V8MB25",
                 "shortcut": "⌥⌘1"
             },
             "content": {
@@ -43,6 +43,38 @@
                 "ascii6": "╚═╝  ╚═╝╚═╝╚═╝  ╚═╝",
                 "welcome": "Welcome to my portfolio",
                 "help": "Type 'help' to get started"
+            }
+        },
+        "about": {
+            "header": {
+                "window-title": "about"
+            },
+            "content": {
+                "message": "Hi there! I'm Rik Rogaar, a {{ age }} year old software developer based in Groningen, the Netherlands. \n I genuinely love what I do, whether it's crafting new projects or diving into the latest tech trends. \n Learning and growing my skills excite me, and I tend to approach challenges with a problem-solving mindset. \n Creativity drives me to explore fresh solutions, and I'm committed to putting in the effort to deliver my best work. \n Collaboration is important to me, and I enjoy helping my teammates succeed. I strive to keep a positive outlook and aim to spread a little joy along the way!"
+            }
+        },
+        "skills": {
+            "header": {
+                "window-title": "skills"
+            },
+            "content": {
+                "message": "Skills"
+            }
+        },
+        "help": {
+            "header": {
+                "window-title": "help"
+            },
+            "content": {
+                "message": "Available commands: \n help - Show this help message\n clear - Clear the terminal\n about - About me\n experience - List my experience\n skills - List my skills"
+            }
+        },
+        "experience": {
+            "header": {
+                "window-title": "experience"
+            },
+            "content": {
+                "message": "Experience"
             }
         }
     }

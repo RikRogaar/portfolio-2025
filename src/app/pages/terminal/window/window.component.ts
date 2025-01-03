@@ -34,9 +34,12 @@ interface TerminalLine {
 export class WindowComponent implements OnInit {
   private readonly commandService = inject(CommandService);
   private readonly translateService = inject(TranslateService);
+  private readonly defaultWindowTitle = 'rik@prtfl-V8MB25';
+
   public inputValue = '';
   public terminalHistory: TerminalLine[] = [];
   public showEasterEgg = false;
+  public windowTitle = this.defaultWindowTitle;
 
   ngOnInit(): void {
     this.initKeyboard();
@@ -57,6 +60,11 @@ export class WindowComponent implements OnInit {
     if (command) {
       const output = this.commandService.executeCommand(command);
 
+      if (output.title) {
+        this.windowTitle = this.defaultWindowTitle + '/' + output.title;
+      } else {
+        this.windowTitle = this.defaultWindowTitle;
+      }
 
       switch (output.text) {
         case 'CLEAR_TERMINAL':

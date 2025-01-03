@@ -44,6 +44,15 @@
                 "welcome": "Welkom bij mijn portfolio",
                 "help": "Typ 'help' om te beginnen"
             }
+        },
+        "about": {
+            "header": {
+                "window-title": "about",
+                "shortcut": "⌥⌘1"
+            },
+            "content": {
+                "message": ""
+            }
         }
     }
 }

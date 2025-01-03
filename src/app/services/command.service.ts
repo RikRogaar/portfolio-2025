@@ -1,77 +1,67 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 export interface CommandOutput {
   text: string;
   isError?: boolean;
+  title?: string;
+}
+
+interface CommandConfig {
+  contentKey?: string;
+  titleKey?: string;
+  text?: string;
+  params?: () => Record<string, any>;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommandService {
+  private readonly translateService = inject(TranslateService);
+  private readonly COMMANDS: Record<string, CommandConfig> = {
+    help: {
+      contentKey: 'terminal.help.content.message',
+      titleKey: 'terminal.help.header.window-title'
+    },
+    about: {
+      contentKey: 'terminal.about.content.message',
+      titleKey: 'terminal.about.header.window-title',
+      params: () => ({ age: this.getAge })
+    },
+    skills: {
+      contentKey: 'terminal.skills.content.message',
+      titleKey: 'terminal.skills.header.window-title'
+    },
+    experience: {
+      contentKey: 'terminal.experience.content.message',
+      titleKey: 'terminal.experience.header.window-title'
+    },
+    clear: {
+      text: 'CLEAR_TERMINAL'
+    },
+    angular: {
+      text: 'SHOW_EASTER_EGG',
+      titleKey: 'terminal.easter-egg.header.window-title'
+    }
+  } as const;
+
   private commands: Map<string, (args: string[]) => CommandOutput> = new Map();
 
-  constructor(private translateService: TranslateService) {
+  constructor() {
     this.initializeCommands();
   }
 
   private initializeCommands(): void {
-    this.commands.set('help', () => ({
-      text: 'Available commands:\n' +
-            '  help - Show this help message\n' +
-            '  clear - Clear the terminal\n' +
-            '  about - About me\n' +
-            '  language - List my languages\n' +
-            '  skills - List my skills'
-    }));
-
-    this.commands.set('about', () => ({
-      text: 'Hi! I\'m a software developer...'
-    }));
-
-    this.commands.set('clear', () => ({
-      text: 'CLEAR_TERMINAL'
-    }));
-
-    // this.commands.set('language', (args: string[]) => {
-    //   if (args.length === 0) {
-    //     return {
-    //       text: `Current language: ${this.translateService.currentLang}`
-    //     };
-    //   }
-
-    //   if (args[0] === 'set' && args[1]) {
-    //     const newLang = args[1].toLowerCase();
-    //     const availableLangs = ['en', 'nl'];
-
-    //     if (availableLangs.includes(newLang)) {
-    //       this.translateService.use(newLang);
-    //       return {
-    //         text: `Language changed to: ${newLang}`
-    //       };
-    //     } else {
-    //       return {
-    //         text: `Language '${newLang}' not supported. Available languages: ${availableLangs.join(', ')}`,
-    //         isError: true
-    //       };
-    //     }
-    //   }
-
-    //   return {
-    //     text: 'Usage:\n' +
-    //           '  language - Show current language\n' +
-    //           '  language set <lang> - Set language (available: en, nl)',
-    //     isError: true
-    //   };
-    // });
-
-    this.commands.set('angular', () => ({
-      text: 'SHOW_EASTER_EGG'
-    }));
+    Object.entries(this.COMMANDS).forEach(([command, config]) => {
+      this.commands.set(command, () => ({
+        text: config.text ?? this.translateService.instant(config.contentKey!, config.params?.()),
+        title: config.titleKey ? this.translateService.instant(config.titleKey) : undefined
+      }));
+    });
   }
 
-  executeCommand(input: string): CommandOutput {
+  public executeCommand(input: string): CommandOutput {
     const [command, ...args] = input.trim().toLowerCase().split(' ');
 
     if (!command) {
@@ -88,5 +78,20 @@ export class CommandService {
     }
 
     return commandFn(args);
+  }
+
+  get getAge(): number {
+    const birthDate = new Date('2004-12-20');
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+
+    const hasBirthdayOccurred = today.getMonth() > birthDate.getMonth() ||
+      (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+
+    if (!hasBirthdayOccurred) {
+      age--;
+    }
+
+    return age;
   }
 }
