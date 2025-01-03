@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { EasterEggComponent } from '../../../components/terminal/easter-egg/easter-egg.component';
 import { CommonModule } from '@angular/common';
 import { InfoComponent } from '../info/info.component';
+import { animate, style, transition, trigger, state } from '@angular/animations';
 
 interface TerminalLine {
   command?: string;
@@ -31,7 +32,30 @@ interface TerminalLine {
     })
   ],
   templateUrl: './window.component.html',
-  styleUrl: './window.component.scss'
+  styleUrl: './window.component.scss',
+  animations: [
+    trigger('resizeAnimation', [
+      state('full', style({
+        width: '100%'
+      })),
+      state('shrunk', style({
+        width: '50%'
+      })),
+      transition('full <=> shrunk', [
+        animate('300ms ease-out')
+      ])
+    ]),
+    trigger('slideAnimation', [
+      transition(':enter', [
+        style({ transform: 'translateX(100%)' }),
+        animate('300ms ease-out', style({ transform: 'translateX(0)' }))
+      ]),
+      transition(':leave', [
+        style({ transform: 'translateX(0)' }),
+        animate('300ms ease-in', style({ transform: 'translateX(100%)' }))
+      ])
+    ])
+  ]
 })
 export class WindowComponent implements OnInit {
   private readonly commandService = inject(CommandService);

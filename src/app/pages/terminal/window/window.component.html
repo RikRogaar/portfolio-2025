@@ -2,7 +2,7 @@
     @if (showEasterEgg) {
         <app-easter-egg (showEasterEgg)="onEasterEggChange($event)"/>
     }
-    <div class="grow bg-zinc-900 m-4 border-2 border-neutral-600 rounded-2xl overflow-hidden">
+    <div [@resizeAnimation]="showInfoTerminal ? 'shrunk' : 'full'" class="grow bg-zinc-900 m-4 border-2 border-neutral-600 rounded-2xl overflow-hidden">
         <header class="bg-zinc-800 border-b-2 border-neutral-600 px-4 py-2 flex items-center justify-between">
             <div class="flex gap-2">
                 <div class="w-3 h-3 rounded-full bg-red-500"></div>
@@ -44,7 +44,7 @@
     </div>
 
     @if (showInfoTerminal) {
-        <div class="grow bg-zinc-900 m-4 border-2 border-neutral-600 rounded-2xl overflow-hidden">
+        <div @slideAnimation class="w-1/2 bg-zinc-900 m-4 border-2 border-neutral-600 rounded-2xl overflow-hidden">
             <app-info (showInfoTerminal)="onInfoTerminalChange($event)" />
         </div>
     }
