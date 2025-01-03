@@ -6,6 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CommandService, CommandOutput } from '../../../services/command.service';
 import { TranslateService } from '@ngx-translate/core';
 import { EasterEggComponent } from '../../../components/terminal/easter-egg/easter-egg.component';
+import { CommonModule } from '@angular/common';
 
 interface TerminalLine {
   command?: string;
@@ -16,10 +17,11 @@ interface TerminalLine {
   selector: 'app-window',
   standalone: true,
   imports: [
+    CommonModule,
     FormsModule,
     NgIcon,
     TranslateModule,
-    EasterEggComponent
+    EasterEggComponent,
   ],
   viewProviders: [
     provideIcons({
@@ -34,6 +36,7 @@ export class WindowComponent implements OnInit {
   private readonly translateService = inject(TranslateService);
   public inputValue = '';
   public terminalHistory: TerminalLine[] = [];
+  public showEasterEgg = false;
 
   ngOnInit(): void {
     this.initKeyboard();
@@ -54,32 +57,45 @@ export class WindowComponent implements OnInit {
     if (command) {
       const output = this.commandService.executeCommand(command);
 
-      if (output.text === 'CLEAR_TERMINAL') {
-        this.terminalHistory = [];
-      } else {
-        this.terminalHistory.push({ command, output });
+
+      switch (output.text) {
+        case 'CLEAR_TERMINAL':
+          this.terminalHistory = [];
+          break;
+        case 'SHOW_EASTER_EGG':
+          this.showEasterEgg = true;
+          this.terminalHistory.push({ command, output: { text: this.translateService.instant('terminal.easter-egg.content.message') } });
+          break;
+        default:
+          this.terminalHistory.push({ command, output });
+          break;
       }
     }
 
     this.inputValue = '';
   }
 
+
   private initializeTerminalHistory(): void {
     const asciiArt = [
-      this.translateService.instant('terminal.intro.ascii1'),
-      this.translateService.instant('terminal.intro.ascii2'),
-      this.translateService.instant('terminal.intro.ascii3'),
-      this.translateService.instant('terminal.intro.ascii4'),
-      this.translateService.instant('terminal.intro.ascii5'),
-      this.translateService.instant('terminal.intro.ascii6')
+      this.translateService.instant('terminal.intro.content.ascii1'),
+      this.translateService.instant('terminal.intro.content.ascii2'),
+      this.translateService.instant('terminal.intro.content.ascii3'),
+      this.translateService.instant('terminal.intro.content.ascii4'),
+      this.translateService.instant('terminal.intro.content.ascii5'),
+      this.translateService.instant('terminal.intro.content.ascii6')
     ].join('\n');
 
     this.terminalHistory = [{
       output: {
         text: asciiArt + '\n\n' +
-              this.translateService.instant('terminal.intro.welcome') + '\n' +
-              this.translateService.instant('terminal.intro.help')
+              this.translateService.instant('terminal.intro.content.welcome') + '\n' +
+              this.translateService.instant('terminal.intro.content.help')
       }
     }];
+  }
+
+  onEasterEggChange(value: boolean) {
+    this.showEasterEgg = value;
   }
 }

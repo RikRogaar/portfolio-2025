@@ -65,6 +65,10 @@ export class CommandService {
         isError: true
       };
     });
+
+    this.commands.set('angular', () => ({
+      text: 'SHOW_EASTER_EGG'
+    }));
   }
 
   executeCommand(input: string): CommandOutput {

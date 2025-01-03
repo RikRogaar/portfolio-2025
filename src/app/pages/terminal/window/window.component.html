@@ -1,5 +1,7 @@
 <main class="bg-neutral-500 flex text-white h-screen">
-    <app-easter-egg></app-easter-egg>
+    @if (showEasterEgg) {
+        <app-easter-egg (showEasterEgg)="onEasterEggChange($event)"/>
+    }
     <div class="grow bg-zinc-900 m-4 border-2 border-neutral-600 rounded-2xl overflow-hidden">
         <header class="bg-zinc-800 border-b-2 border-neutral-600 px-4 py-2 flex items-center justify-between">
             <div class="flex gap-2">
